@@ -5,8 +5,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
   BiocManager::install("httr")
   BiocManager::install("GEOquery")
   BiocManager::install("limma")
-  
-  
 }  
 
 library(GEOquery)

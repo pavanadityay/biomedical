@@ -2,12 +2,12 @@ From rocker/r-ver:3.5.1
 
 #System dependencies
 
-#RUN apt-get update
+RUN apt-get update
 
 #R Packages
 
 
-RUN Rscript -e 'install.packages(c("caTools","caret","ClusterR","dplyr","e1071","ElemStatLearn","GGally","magrittr","MASS","neuralnet","party","randomForest","tidyverse","thePackage","umap"))'
+RUN Rscript -e 'install.packages(c("caTools","caret","ClusterR","dplyr","e1071","ElemStatLearn","GGally","magrittr","MASS","neuralnet","party","randomForest","tidyverse","thePackage","umap","rpart","gmodels","tidyverse"))'
 
 RUN mkdir Biomed
 
@@ -22,6 +22,11 @@ RUN mkdir /Biomed/generatedResults
 
 COPY ./dataset/mergem.csv /Biomed/dataset/
 
+COPY ./dataset/mergeleu.csv /Biomed/dataset/
+
+
+COPY ./dataset/mergelym.csv /Biomed/dataset/
+
 COPY ./src/* /Biomed/src/
 
 COPY ./generatedResults/* /Biomed/generatedResults/ 
@@ -30,7 +35,7 @@ RUN mkdir /Biomed/output/
 
   
 
-#Leukemia
+#Myeloma
 
 RUN Rscript /Biomed/src/healthyds.R
 RUN Rscript /Biomed/src/cancerds.R
@@ -54,7 +59,15 @@ RUN Rscript /Biomed/src/NB_lym.R
 RUN Rscript /Biomed/src/randomforest_lym.R
 RUN Rscript /Biomed/src/SVM_lym.R
 
+#Leukemia
 
+RUN Rscript /Biomed/src/healthy_leuk.R
+RUN Rscript /Biomed/src/decisiont_leuk.R
+RUN Rscript /Biomed/src/kmeans_leauk.R
+RUN Rscript /Biomed/src/KNN_leuk.R
+RUN Rscript /Biomed/src/NB_leuk.R
+RUN Rscript /Biomed/src/randomf_leuk.R
+RUN Rscript /Biomed/src/svm_leuk.R
 
 
 
